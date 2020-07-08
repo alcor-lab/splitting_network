@@ -1,0 +1,30 @@
+
+
+
+
+##per trainare 1 singolo split 20vs680 salvando il modello con parallel_big_train.py :
+CUDA_VISIBLE_DEVICES=0 python parallel_big_train.py --seed 1 --data_dir /media/Data2/avi_kinetics700_256/ --start_from 34 --no_parallel --gpu 0 --absolute_path --fix_imbalance --epochs 1
+
+##OPPURE per trainare tutti i 34 splits:
+python parallel_big_train.py --seed 1 --data_dir ~/softlinkFolder20vs20/ --start_from 11
+
+###per lanciare l' estrazione delle predizioni su di un singolo split (n. 34):
+CUDA_VISIBLE_DEVICES=0 python parallel_big_train.py --seed 1 --test  --data_dir /media/Data2/avi_kinetics700_256_validation/ --start_from 34 --no_parallel --gpu 0 --absolute_path
+
+##per lanciare l' aggregate - prediction su il training I3D:
+python aggregate_predictions.py --seed 0 --test --data_dir /media/Data2/avi_kinetics700_256_validation/ --start_from 0 --end_to 34
+
+##per lanciare l' aggregate - prediction su il training ResNet2D+1:
+python aggregate_predictions.py --seed 1007 --test --data_dir /media/Data2/avi_kinetics700_256_validation/ --start_from 0 --end_to 35
+
+
+
+
+
+
+##per trainare basic (da aggiungereo controllare codice per salvare architettura):
+CUDA_VISIBLE_DEVICES=1 python main.py --arch I3D --train_file ./config/20_40_classes_train.txt --test_file ./config/20_40_classes_test.txt --fix_imbalance
+
+
+
+
